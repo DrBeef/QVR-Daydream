@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Layout for the 2D Activity. It will either show a permission button or the MonoscopicView. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/activity_root"
+  android:orientation="vertical"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+
+  <!-- Permission request button that will be shown until the permission is granted. -->
+  <Button
+    android:id="@+id/permission_button"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="@string/permission_warning"/>
+
+  <include
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:visibility="gone"/>
+</LinearLayout>

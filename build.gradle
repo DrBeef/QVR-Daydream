@@ -1,0 +1,47 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    // This configures the Gradle build system, but not the GVR components.
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.1.3'
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        // For GVR components, the official source of the .aars is JCenter.
+        jcenter()
+        maven {
+            // For Android support library components.
+            url "https://maven.google.com"
+        }
+        // You can also use a local Maven repository if desired.
+        mavenLocal()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+task extractGvrSo(type: Copy) {
+    from zipTree("${project.rootDir}/libraries/sdk-base-1.150.0.aar")
+    into "${project.rootDir}/libraries/"
+    include "jni/**/libgvr.so"
+}
+
+task extractNdk { }
+extractNdk.dependsOn extractGvrSo
+
+task deleteNdk(type: Delete) {
+    delete "${project.rootDir}/libraries/jni"
+}
+clean.dependsOn(deleteNdk)
